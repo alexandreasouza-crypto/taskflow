@@ -55,7 +55,7 @@ export const createCategory = async (req: AuthRequest, res: Response): Promise<v
 export const updateCategory = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { id } = req.params;
+    const id = String(req.params.id);
     const validatedData = categorySchema.partial().parse(req.body);
 
     const existing = await prisma.category.findFirst({
@@ -86,7 +86,7 @@ export const updateCategory = async (req: AuthRequest, res: Response): Promise<v
 export const deleteCategory = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const existing = await prisma.category.findFirst({
       where: { id, userId },
