@@ -117,7 +117,7 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
 export const updateTask = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { id } = req.params;
+    const id = String(req.params.id);
     const validatedData = taskSchema.partial().parse(req.body);
 
     const existing = await prisma.task.findFirst({
@@ -193,7 +193,7 @@ export const updateTask = async (req: AuthRequest, res: Response): Promise<void>
 export const updateTaskStatusAndOrder = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { status, order } = req.body;
 
     const existing = await prisma.task.findFirst({
@@ -239,7 +239,7 @@ export const updateTaskStatusAndOrder = async (req: AuthRequest, res: Response):
 export const deleteTask = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const existing = await prisma.task.findFirst({
       where: { id, userId },
