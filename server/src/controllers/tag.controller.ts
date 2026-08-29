@@ -55,7 +55,7 @@ export const createTag = async (req: AuthRequest, res: Response): Promise<void> 
 export const updateTag = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { id } = req.params;
+    const id = String(req.params.id);
     const validatedData = tagSchema.partial().parse(req.body);
 
     const existing = await prisma.tag.findFirst({
@@ -86,7 +86,7 @@ export const updateTag = async (req: AuthRequest, res: Response): Promise<void> 
 export const deleteTag = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const existing = await prisma.tag.findFirst({
       where: { id, userId },
